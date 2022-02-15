@@ -10,6 +10,7 @@ namespace QRTracking
     public class QRCodesVisualizer : MonoBehaviour
     {
         public GameObject qrCodePrefab;
+        public GameObject qrCodePrefabSpine;
 
         private System.Collections.Generic.SortedDictionary<System.Guid, GameObject> qrCodesObjectsList;
         private bool clearExisting = false;
@@ -100,7 +101,15 @@ namespace QRTracking
                     var action = pendingActions.Dequeue();
                     if (action.type == ActionData.Type.Added)
                     {
-                        GameObject qrCodeObject = Instantiate(qrCodePrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                        GameObject qrCodeObject;
+                        if (action.qrCode.Data == "Spine")
+                        {
+                            qrCodeObject = Instantiate(qrCodePrefabSpine, new Vector3(0, 0, 0), Quaternion.identity);
+                        }
+                        else
+                        {
+                            qrCodeObject = Instantiate(qrCodePrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                        }
                         qrCodeObject.GetComponent<SpatialGraphNodeTracker>().Id = action.qrCode.SpatialGraphNodeId;
                         qrCodeObject.GetComponent<QRCode>().qrCode = action.qrCode;
                         qrCodesObjectsList.Add(action.qrCode.Id, qrCodeObject);
@@ -109,7 +118,15 @@ namespace QRTracking
                     {
                         if (!qrCodesObjectsList.ContainsKey(action.qrCode.Id))
                         {
-                            GameObject qrCodeObject = Instantiate(qrCodePrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                            GameObject qrCodeObject;
+                            if (action.qrCode.Data == "Spine")
+                            {
+                                qrCodeObject = Instantiate(qrCodePrefabSpine, new Vector3(0, 0, 0), Quaternion.identity);
+                            }
+                            else
+                            {
+                                qrCodeObject = Instantiate(qrCodePrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                            }
                             qrCodeObject.GetComponent<SpatialGraphNodeTracker>().Id = action.qrCode.SpatialGraphNodeId;
                             qrCodeObject.GetComponent<QRCode>().qrCode = action.qrCode;
                             qrCodesObjectsList.Add(action.qrCode.Id, qrCodeObject);

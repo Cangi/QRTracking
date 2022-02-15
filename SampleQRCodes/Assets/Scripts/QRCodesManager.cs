@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections;
-
 using System.Collections.Generic;
-
 using UnityEngine;
-
 using Microsoft.MixedReality.QR;
 
 namespace QRTracking
@@ -42,14 +38,14 @@ namespace QRTracking
         public event EventHandler<QRCodeEventArgs<Microsoft.MixedReality.QR.QRCode>> QRCodeUpdated;
         public event EventHandler<QRCodeEventArgs<Microsoft.MixedReality.QR.QRCode>> QRCodeRemoved;
 
-        private System.Collections.Generic.SortedDictionary<System.Guid, Microsoft.MixedReality.QR.QRCode> qrCodesList = new SortedDictionary<System.Guid, Microsoft.MixedReality.QR.QRCode>();
+        private SortedDictionary<Guid, Microsoft.MixedReality.QR.QRCode> qrCodesList = new SortedDictionary<Guid, Microsoft.MixedReality.QR.QRCode>();
 
         private QRCodeWatcher qrTracker;
         private bool capabilityInitialized = false;
         private QRCodeWatcherAccessStatus accessStatus;
         private System.Threading.Tasks.Task<QRCodeWatcherAccessStatus> capabilityTask;
 
-        public System.Guid GetIdForQRCode(string qrCodeData)
+        public Guid GetIdForQRCode(string qrCodeData)
         {
             lock (qrCodesList)
             {
@@ -61,10 +57,10 @@ namespace QRTracking
                     }
                 }
             }
-            return new System.Guid();
+            return new Guid();
         }
 
-        public System.Collections.Generic.IList<Microsoft.MixedReality.QR.QRCode> GetList()
+        public IList<Microsoft.MixedReality.QR.QRCode> GetList()
         {
             lock (qrCodesList)
             {
